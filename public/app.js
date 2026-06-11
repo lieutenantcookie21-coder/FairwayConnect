@@ -333,7 +333,8 @@ function postCard(p) {
           </div>`).join("")}
         <form class="comment-form" onsubmit="return addComment(event, ${p.id})">
           ${meBrief ? avatar(meBrief, "sm") : ""}
-          <input id="comment-input-${p.id}" type="text" placeholder="Add a comment…" />
+          <input id="comment-input-${p.id}" type="text" placeholder="Add a comment…" enterkeyhint="send" />
+          <button class="btn btn-primary btn-sm" type="submit">Post</button>
         </form>
       </div>
     </div>`;
