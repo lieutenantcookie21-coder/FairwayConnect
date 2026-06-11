@@ -1,5 +1,5 @@
 // FairwayConnect service worker: cache static shell, never cache the API.
-const CACHE = "fairway-v1";
+const CACHE = "fairway-v2";
 const SHELL = ["/", "/styles.css", "/app.js", "/manifest.webmanifest",
                "/icons/icon-192.png", "/icons/icon-512.png"];
 

@@ -524,11 +524,13 @@ async function createTeeTime(ev) {
 
 async function renderMessages(withId) {
   const list = await api("/threads");
-  if (!withId && list.threads.length) withId = list.threads[0].with.id;
+  const isPhone = matchMedia("(max-width: 640px)").matches;
+  // On desktop auto-open the latest thread; on phones stay on the list.
+  if (!withId && list.threads.length && !isPhone) withId = list.threads[0].with.id;
   const thread = withId ? await api(`/threads/${withId}`).catch(() => null) : null;
 
   $app.innerHTML = `
-    <div class="card msg-layout">
+    <div class="card msg-layout ${thread ? "has-thread" : ""}">
       <div class="msg-list">
         <div class="msg-pane-head">Messaging</div>
         ${list.threads.map(t => `
@@ -543,7 +545,7 @@ async function renderMessages(withId) {
       </div>
       ${thread ? `
         <div class="msg-pane">
-          <div class="msg-pane-head">${esc(thread.with.name)} <span class="person-sub" style="font-weight:400">· ${esc(thread.with.headline)}</span></div>
+          <div class="msg-pane-head"><a class="msg-back" href="#/messages">‹</a>${esc(thread.with.name)} <span class="person-sub" style="font-weight:400">· ${esc(thread.with.headline)}</span></div>
           <div class="msg-scroll">
             ${thread.messages.map(m => `
               <div class="bubble ${m.from === meBrief.id ? "bubble-me" : "bubble-them"}">${esc(m.text)}</div>`).join("")}
@@ -637,7 +639,11 @@ async function renderProfile(id) {
             ${avatar(u, "xl")}
             <div class="profile-name">${esc(u.name)}</div>
             <div class="profile-headline">${esc(u.headline)}</div>
-            <div class="profile-loc">${esc(u.location || "")}${u.homeCourse ? ` · Home course: ${esc(u.homeCourse)}` : ""} · ${u.connections} connection${u.connections === 1 ? "" : "s"}</div>
+            <div class="profile-loc">${[
+              u.location && esc(u.location),
+              u.homeCourse && `Home course: ${esc(u.homeCourse)}`,
+              `${u.connections} connection${u.connections === 1 ? "" : "s"}`,
+            ].filter(Boolean).join(" · ")}</div>
             <div class="profile-cta">${cta}</div>
           </div>
           <div class="stat-strip">
