@@ -1,0 +1,8 @@
+{
+  "appId": "com.fairwayconnect.app",
+  "appName": "FairwayConnect",
+  "webDir": "public",
+  "ios": {
+    "contentInset": "always"
+  }
+}

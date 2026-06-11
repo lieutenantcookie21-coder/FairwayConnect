@@ -1,0 +1,5 @@
+fairway.db*
+__pycache__/
+.DS_Store
+node_modules/
+ios/

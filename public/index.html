@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a6e3a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="FairwayConnect" />
+  <title>FairwayConnect — The professional network for golfers</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <link rel="icon" type="image/png" href="icons/icon-192.png" />
+</head>
+<body class="noauth">
+  <header class="topnav">
+    <div class="topnav-inner">
+      <a class="brand" href="#/feed">
+        <span class="brand-logo">⛳</span>
+        <span class="brand-name">FairwayConnect</span>
+      </a>
+      <div class="search-wrap authed-only">
+        <input id="searchInput" class="search" type="text" placeholder="Search golfers, courses…" autocomplete="off" />
+        <div id="searchResults" class="search-results hidden"></div>
+      </div>
+      <nav class="nav-items authed-only">
+        <a href="#/feed" class="nav-item" data-nav="feed"><span class="nav-icon">🏠</span><span class="nav-label">Home</span></a>
+        <a href="#/network" class="nav-item" data-nav="network"><span class="nav-icon">🤝</span><span class="nav-label">My Foursome</span><span id="badgeNetwork" class="badge hidden"></span></a>
+        <a href="#/teetimes" class="nav-item" data-nav="teetimes"><span class="nav-icon">📋</span><span class="nav-label">Tee Times</span></a>
+        <a href="#/messages" class="nav-item" data-nav="messages"><span class="nav-icon">✉️</span><span class="nav-label">Messaging</span><span id="badgeMessages" class="badge hidden"></span></a>
+        <a href="#/notifications" class="nav-item" data-nav="notifications"><span class="nav-icon">🔔</span><span class="nav-label">Notifications</span><span id="badgeNotifs" class="badge hidden"></span></a>
+        <a href="#/profile/me" class="nav-item" data-nav="me"><span class="nav-icon avatar-icon" id="navAvatar"></span><span class="nav-label">Me</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="app" class="page"></main>
+
+  <script src="app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").catch(() => {});
+    }
+  </script>
+</body>
+</html>
